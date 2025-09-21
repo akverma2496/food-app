@@ -8,6 +8,7 @@ import Dashboard from "./pages/Dashboard";
 import Categories from "./pages/Categories";
 import Recipes from "./pages/Recipes";
 import Orders from "./pages/Orders";
+import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
   return (
@@ -16,7 +17,7 @@ function App() {
         {/* App Routes */}
         <Routes>
           <Route path="/login" element={<Login />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
           <Route path="/categories" element={<Categories />} />
           <Route path="/recipes" element={<Recipes />} />
           <Route path="/orders" element={<Orders />} />
