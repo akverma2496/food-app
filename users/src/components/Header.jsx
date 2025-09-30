@@ -1,37 +1,53 @@
-import { Navbar, Nav, Container, Form, FormControl, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import { FaShoppingCart, FaUser } from "react-icons/fa";
+import { Navbar, Container, Nav, NavDropdown, Badge } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../store/slices/authSlice";
 
 const Header = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
+  const { items } = useSelector((state) => state.cart); // <-- get cart items
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/login");
+  };
+
+  // total number of items in cart
+  const cartCount = items.reduce((acc, item) => acc + item.quantity, 0);
+
   return (
     <Navbar bg="light" expand="lg" className="shadow-sm">
       <Container>
-        {/* Brand as text logo */}
-        <Navbar.Brand as={Link} to="/" className="fw-bold">
+        <Navbar.Brand as={Link} to="/">
           Fast Food
         </Navbar.Brand>
-
-        <Navbar.Toggle aria-controls="main-navbar" />
-        <Navbar.Collapse id="main-navbar">
-          {/* Center search bar */}
-          <Form className="d-flex mx-auto w-50">
-            <FormControl
-              type="search"
-              placeholder="Search recipes..."
-              className="me-2"
-              aria-label="Search"
-            />
-            <Button variant="outline-primary">Search</Button>
-          </Form>
-
-          {/* Right side icons */}
-          <Nav>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="ms-auto align-items-center">
             <Nav.Link as={Link} to="/cart">
-              <FaShoppingCart size={20} /> Cart
+              Cart <Badge bg="secondary">{cartCount}</Badge>
             </Nav.Link>
-            <Nav.Link as={Link} to="/profile">
-              <FaUser size={20} /> Profile
-            </Nav.Link>
+
+            {!user ? (
+              <>
+                <Nav.Link as={Link} to="/login">
+                  Login
+                </Nav.Link>
+                <Nav.Link as={Link} to="/signup">
+                  SignUp
+                </Nav.Link>
+              </>
+            ) : (
+              <NavDropdown title={user.email} id="user-dropdown">
+                <NavDropdown.Item as={Link} to="/profile">
+                  Profile
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
+              </NavDropdown>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>
