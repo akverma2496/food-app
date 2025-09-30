@@ -1,9 +1,13 @@
-function Footer() {
+import { Container } from "react-bootstrap";
+
+const Footer = () => {
   return (
-    <footer className="bg-light text-center py-3 mt-4 shadow-sm">
-      <p className="mb-0">&copy; {new Date().getFullYear()} FastFood</p>
+    <footer className="bg-light py-3 mt-auto border-top">
+      <Container className="text-center">
+        <small className="text-muted">© {new Date().getFullYear()} Fast Food. All rights reserved.</small>
+      </Container>
     </footer>
   );
-}
+};
 
 export default Footer;

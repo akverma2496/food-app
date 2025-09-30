@@ -1,25 +1,40 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import Home from "./pages/Home";
-import Login from "./pages/Login";
+import Layout from "./components/Layout";
+import AuthLayout from "./components/AuthLayout";
+
 import Signup from "./pages/Signup";
-import Profile from "./pages/Profile";
+import Login from "./pages/Login";
+import ForgotPassword from "./pages/ForgotPassword";
+//import Home from "./pages/Home";
+//import Profile from "./pages/Profile";
+//import Cart from "./pages/Cart";
+
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
+    <>
     <Router>
-      <Header />
-      <main className="container py-4">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
+      <Routes>
+        {/* Layout wraps everything → Header + Footer always visible */}
+        <Route element={<Layout />}>
+          {/* Public Routes */}
           <Route path="/signup" element={<Signup />} />
-          <Route path="/profile" element={<Profile />} />
-        </Routes>
-      </main>
-      <Footer />
+          <Route path="/login" element={<Login />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+
+          {/* Protected Routes */}
+          <Route element={<AuthLayout />}>
+            {/* <Route path="/" element={<Home />} /> */}
+            {/* <Route path="/profile" element={<Profile />} /> */}
+            {/* <Route path="/cart" element={<Cart />} /> */}
+          </Route>
+        </Route>
+      </Routes>
     </Router>
+    <ToastContainer position="top-right" autoClose={3000} />
+    </>
   );
 }
 
