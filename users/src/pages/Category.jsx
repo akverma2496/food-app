@@ -64,7 +64,7 @@ const Category = () => {
     <Container className="py-4">
       <h2 className="mb-4 text-center">{categoryName}</h2>
       {recipes.length === 0 ? (
-        <p className="text-center">No recipes found in this category.</p>
+        <p className="text-center">No recipes found in this category</p>
       ) : (
         <Row className="g-3">
           {recipes.map((recipe) => (

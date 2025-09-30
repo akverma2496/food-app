@@ -8,7 +8,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 import Category from "./pages/Category";
 import RecipeDetails from "./pages/RecipeDetails";
 import Home from "./pages/Home";
-//import Profile from "./pages/Profile";
+import Profile from "./pages/Profile";
 import Cart from "./pages/Cart";
 
 import { ToastContainer } from "react-toastify";
@@ -33,7 +33,7 @@ function App() {
 
           {/* Protected Routes */}
           <Route element={<AuthLayout />}>
-            {/* <Route path="/profile" element={<Profile />} /> */}
+            <Route path="/profile" element={<Profile />} />
             <Route path="/cart" element={<Cart />} />
           </Route>
         </Route>
